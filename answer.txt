@@ -1,0 +1,13 @@
+-LAB03_2
+
+ **Sử dụng phương thức `addDigitalVideoDisc` với varargs tiện lợi hơn** vì không cần phải tạo một mảng trước khi truyền tham số.
+ Điều này giúp mã nguồn trở nên ngắn gọn, dễ đọc và thuận tiện khi số lượng đối tượng cần xử lý không cố định.
+
+- **Java là ngôn ngữ truyền tham số theo giá trị (Pass by Value)**.
+ Đối với kiểu tham chiếu, Java truyền bản sao của tham chiếu. Do đó, thay đổi thuộc tính của đối tượng được tham chiếu sẽ ảnh hưởng đến đối tượng gốc, nhưng việc gán một tham chiếu mới sẽ không ảnh hưởng đến tham chiếu ban đầu.
+
+- Sau khi gọi phương thức `swap(jungleDVD, cinderellaDVD)`, **tựa đề của hai đối tượng vẫn không thay đổi**.
+ Nguyên nhân là vì các tham số trong phương thức chỉ là bản sao của tham chiếu đến các đối tượng, nên việc hoán đổi trong phương thức không tác động đến tham chiếu ban đầu trong hàm gọi.
+
+- Khi gọi phương thức `changeTitle(jungleDVD, cinderellaDVD.getTitle())`, **tựa đề của JungleDVD thay đổi**. 
+Điều này xảy ra do trong phương thức, phương thức `setTitle()` được gọi để thay đổi giá trị thuộc tính của đối tượng mà tham chiếu đang trỏ đến. Vì thế, đối tượng gốc cũng bị thay đổi.
