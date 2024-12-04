@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Cart {
     private ArrayList<Media> itemsOrdered = new ArrayList<>();
 
-    // Add a Media to the cart
+    // Thêm một Media vào giỏ hàng
     public void addMedia(Media media) {
         if (!itemsOrdered.contains(media)) {
             itemsOrdered.add(media);
@@ -13,23 +14,7 @@ public class Cart {
         }
     }
 
-    // Add multiple Media items to the cart
-    public void addMedia(Media... mediaList) {
-        for (Media media : mediaList) {
-            addMedia(media); // Gọi phương thức addMedia để kiểm tra và thêm
-        }
-    }
-
-    // Remove a Media from the cart
-    public void removeMedia(Media media) {
-        if (itemsOrdered.remove(media)) {
-            System.out.println("The media \"" + media.getTitle() + "\" has been removed from the cart.");
-        } else {
-            System.out.println("The media \"" + media.getTitle() + "\" was not found in the cart.");
-        }
-    }
-
-    // Calculate total cost of all Media in the cart
+    // Tính tổng chi phí của các media trong giỏ hàng
     public double totalCost() {
         double total = 0.0;
         for (Media media : itemsOrdered) {
@@ -38,46 +23,30 @@ public class Cart {
         return total;
     }
 
-    // Display ordered items and total price
+    // Hiển thị giỏ hàng
     public void printCart() {
         System.out.println("***********************CART***********************");
-        System.out.println("Ordered Items:");
-        int itemNumber = 1;
-        for (Media media : itemsOrdered) {
-            System.out.println(itemNumber + ". " + media.toString());
-            itemNumber++;
+        if (itemsOrdered.isEmpty()) {
+            System.out.println("The cart is currently empty.");
+        } else {
+            for (int i = 0; i < itemsOrdered.size(); i++) {
+                Media media = itemsOrdered.get(i);
+                System.out.println((i + 1) + ". " + media.toString());
+            }
         }
         System.out.println("Total cost: " + totalCost() + " $");
         System.out.println("***************************************************");
     }
 
-    // Search for a Media by ID
-    public void searchCart(int id) {
-        boolean found = false;
-        for (Media media : itemsOrdered) {
-            if (media.getId() == id) {
-                found = true;
-                System.out.println("Item found: " + media.toString());
-                break;
-            }
-        }
-        if (!found) {
-            System.out.println("Item not found.");
-        }
+    // Sắp xếp giỏ hàng theo title
+    public void sortByTitle() {
+        Collections.sort(itemsOrdered);  // Sắp xếp theo title (dựa trên Comparable)
+        System.out.println("Cart sorted by title.");
     }
 
-    // Search for a Media by title
-    public void searchCart(String title) {
-        boolean found = false;
-        for (Media media : itemsOrdered) {
-            if (media.getTitle().equalsIgnoreCase(title)) {
-                found = true;
-                System.out.println("Item found: " + media.toString());
-                break;
-            }
-        }
-        if (!found) {
-            System.out.println("Item not found.");
-        }
+    // Sắp xếp giỏ hàng theo cost
+    public void sortByCost() {
+        Collections.sort(itemsOrdered, new MediaCostComparator());  // Sắp xếp theo cost (dựa trên Comparator)
+        System.out.println("Cart sorted by cost.");
     }
 }

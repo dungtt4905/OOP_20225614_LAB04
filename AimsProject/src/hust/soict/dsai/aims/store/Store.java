@@ -1,10 +1,10 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Store {
-    // List to store all media items available in the store
     private ArrayList<Media> itemsInStore = new ArrayList<>();
 
-    // Method to add a Media to the store
+    // Thêm một Media vào cửa hàng
     public void addMedia(Media media) {
         if (!itemsInStore.contains(media)) {
             itemsInStore.add(media);
@@ -14,7 +14,7 @@ public class Store {
         }
     }
 
-    // Method to remove a Media from the store
+    // Xóa một Media khỏi cửa hàng
     public void removeMedia(Media media) {
         if (itemsInStore.remove(media)) {
             System.out.println("The media \"" + media.getTitle() + "\" has been removed from the store.");
@@ -23,7 +23,7 @@ public class Store {
         }
     }
 
-    // Method to display all media in the store
+    // Hiển thị tất cả các media trong cửa hàng
     public void displayStore() {
         System.out.println("*********************STORE*********************");
         if (itemsInStore.isEmpty()) {
@@ -37,14 +37,15 @@ public class Store {
         System.out.println("************************************************");
     }
 
-    // Method to find Media by title
-    public Media findMediaByTitle(String title) {
-        for (Media media : itemsInStore) {
-            if (media.getTitle().equalsIgnoreCase(title)) {
-                return media;
-            }
-        }
-        System.out.println("Media with title \"" + title + "\" not found in the store.");
-        return null;
+    // Sắp xếp cửa hàng theo title
+    public void sortByTitle() {
+        Collections.sort(itemsInStore);  // Sắp xếp theo title (dựa trên Comparable)
+        System.out.println("Store sorted by title.");
+    }
+
+    // Sắp xếp cửa hàng theo cost
+    public void sortByCost() {
+        Collections.sort(itemsInStore, new MediaCostComparator());  // Sắp xếp theo cost (dựa trên Comparator)
+        System.out.println("Store sorted by cost.");
     }
 }

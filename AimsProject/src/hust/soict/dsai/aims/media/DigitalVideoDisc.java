@@ -1,27 +1,44 @@
-package hust.soict.dsai.aims.media;
+public class DigitalVideoDisc extends Media {
+    private String director;
+    private int length;
 
-public class DigitalVideoDisc extends Disc implements Playable {
     // Constructor
-    public DigitalVideoDisc(int id, String title, String category, String director, int length, float cost) {
-        super(id, title, category, cost, length, director);
+    public DigitalVideoDisc(int id, String title, String category, float cost, String director, int length) {
+        super(id, title, category, cost);  // Gọi constructor của Media
+        this.director = director;
+        this.length = length;
     }
 
-    // Implement the play() method from Playable interface
-    @Override
-    public void play() {
-        if (getLength() > 0) { // Kiểm tra nếu độ dài hợp lệ
-            System.out.println("Playing DVD: " + getTitle());
-            System.out.println("DVD length: " + getLength() + " minutes");
-        } else {
-            System.out.println("Cannot play this DVD. Length is invalid.");
-        }
+    // Getters
+    public String getDirector() {
+        return director;
     }
 
-    // Optional: Override toString() for better display
+    public int getLength() {
+        return length;
+    }
+
+    // Ghi đè phương thức toString() để thêm thông tin DVD
     @Override
     public String toString() {
-        return "DigitalVideoDisc [ID=" + getId() + ", Title=" + getTitle() + 
-               ", Category=" + getCategory() + ", Director=" + getDirector() +
-               ", Length=" + getLength() + " minutes, Cost=$" + getCost() + "]";
+        return super.toString() + ", Director=" + director + ", Length=" + length + " minutes";
+    }
+
+    // Ghi đè equals() để so sánh đối tượng DigitalVideoDisc dựa trên title
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        DigitalVideoDisc that = (DigitalVideoDisc) obj;
+        return length == that.length && title.equalsIgnoreCase(that.title);  // So sánh title và length
+    }
+
+    // Ghi đè hashCode() để đảm bảo tính duy nhất
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + length;  // Tính hashCode dựa trên length
+        return result;
     }
 }
